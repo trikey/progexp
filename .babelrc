@@ -1,0 +1,14 @@
+{
+    "presets": [
+        ["@babel/preset-env", {
+            "targets": {
+                "browsers": ["> 1%"]
+            }
+        }]
+    ],
+    "plugins": [
+        ["syntax-dynamic-import", {}, "syntax-import"],
+        ["babel-plugin-syntax-dynamic-import", {}, "syntax-import-babel"],
+        ["es6-promise", {}, "es6-promise"]
+    ]
+}

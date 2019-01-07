@@ -1,0 +1,11 @@
+{
+    "extends": "dq",
+    "rules": {
+        "import/no-extraneous-dependencies": 0,
+        "import/no-unresolved": 0
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "allowImportExportEverywhere": true
+    }
+}

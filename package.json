@@ -7,7 +7,8 @@
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "lint": "node ./node_modules/eslint/bin/eslint.js resources --ext js,vue"
     },
     "devDependencies": {
         "axios": "^0.18",
@@ -20,6 +21,24 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.17"
+        "vue": "^2.5.17",
+        "vue-template-compiler": "^2.5.21"
+    },
+    "dependencies": {
+        "babel-eslint": "7",
+        "babel-plugin-es6-promise": "^1.1.1",
+        "babel-plugin-syntax-dynamic-import": "^6.18.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "babel-preset-es2015": "^6.24.1",
+        "es6-promise": "^4.1.1",
+        "eslint": "^4.11.0",
+        "eslint-config-dq": "^1.2.0",
+        "moment": "^2.19.2",
+        "uglifyjs-webpack-plugin": "^2.0.1",
+        "vee-validate": "^2.1.0-beta.9",
+        "vue-loading-spinner": "^1.0.11",
+        "vue-masked-input": "^0.5.2",
+        "vue-resource": "^1.3.4",
+        "vue-resource-case-converter": "^2.1.0"
     }
 }
