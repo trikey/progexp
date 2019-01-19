@@ -1,7 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const path = require('path');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -28,7 +27,6 @@ mix.js('resources/js/app.js', 'public/js')
   ])
   .sass('resources/sass/app.scss', 'public/css');
 
-
 mix.webpackConfig({
   output: {
     filename: '[name].js',
@@ -37,11 +35,10 @@ mix.webpackConfig({
   },
   resolve: {
     alias: {
-      _components: path.join(__dirname, 'resources', 'assets', 'js', 'components'),
-      _resources: path.join(__dirname, 'resources', 'assets', 'js', 'resources'),
-      _bus: path.join(__dirname, 'resources', 'assets', 'js', 'bus'),
-      _mixins: path.join(__dirname, 'resources', 'assets', 'js', 'mixins'),
-      _services: path.join(__dirname, 'resources', 'assets', 'js', 'services'),
+      '@root': path.resolve(__dirname, 'resources', 'js'),
+      '@views': path.resolve(__dirname, 'resources', 'js', 'views'),
+      '@pages': path.resolve(__dirname, 'resources', 'js', 'views', 'pages'),
+      '@store': path.resolve(__dirname, 'resources', 'js', 'store'),
     },
   },
   plugins: [
