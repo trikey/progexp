@@ -25,7 +25,7 @@ class AuthController extends \App\Http\Controllers\Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return response()->json(['status' => 'success'], 200);
+        return response()->json([], 200);
     }
 
     public function login(Request $request)
@@ -34,33 +34,25 @@ class AuthController extends \App\Http\Controllers\Controller
         if ($token = $this->guard()->attempt($credentials)) {
             return response()->json(['status' => 'success'], 200)->header('Authorization', $token);
         }
-        return response()->json(['error' => 'login_error'], 401);
+        return response()->json(['error' => 'user_not_found'], 401);
     }
 
     public function logout()
     {
         $this->guard()->logout();
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Logged out Successfully.'
-        ], 200);
+        return response()->json([], 200);
     }
 
     public function user(Request $request)
     {
-        $user = User::find(Auth::user()->id);
-        return response()->json([
-            'status' => 'success',
-            'data' => $user
-        ]);
+        $user = User::findOrFail(Auth::user()->id);
+        return response()->json($user);
     }
 
     public function refresh()
     {
         if ($token = $this->guard()->refresh()) {
-            return response()
-                ->json(['status' => 'successs'], 200)
-                ->header('Authorization', $token);
+            return response()->json()->header('Authorization', $token);
         }
         return response()->json(['error' => 'refresh_token_error'], 401);
     }
