@@ -1,10 +1,48 @@
 <template>
   <div>
-    <form @submit.prevent="login()">
-      <input type="text" v-model="email"/>
-      <input type="password" v-model="password"/>
-      <input type="submit" value="Login"/>
-    </form>
+    <v-container fluid fill-height>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>Login form</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-card-text>
+              <v-form ref="form" v-model="valid" validattion>
+                <v-text-field
+                              prepend-icon="person"
+                              label="Email"
+                              v-validate="'required|email'"
+                              v-model="email"
+                              :error-messages="errors.collect('email')"
+                              data-vv-name="email"
+                              type="password"
+                              required
+
+                >
+
+                </v-text-field>
+                <v-text-field prepend-icon="lock"
+                              label="Password"
+                              id="password"
+                              v-validate="'required|min:5'"
+                              v-model="password"
+                              :error-messages="errors.collect('password')"
+                              data-vv-name="password"
+                              required
+                >
+                </v-text-field>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="login" :disabled="!valid">Login</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 <script>
@@ -20,17 +58,20 @@ export default {
     return {
       email: '',
       password: '',
+      valid: false
     };
   },
   computed: {
     ...mapGetters('auth', [
       'loggedIn',
-    ]),
+    ])
   },
   methods: {
-    login() {
-      const { email, password } = this;
-      this.$store.dispatch('auth/login', { email, password }).then(this.redirect);
+    login(){
+      if (this.$refs.form.validate()){
+        const { email, password } = this;
+        this.$store.dispatch('auth/login', { email, password }).then(this.redirect)
+      }
     },
     redirect() {
       if (this.$route.query.redirect) {
@@ -43,3 +84,7 @@ export default {
   },
 };
 </script>
+<style scoped="">
+
+
+</style>

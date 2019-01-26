@@ -4,6 +4,20 @@ import '@root/bootstrap.js';
 import initRouter from '@root/router.js';
 import routes from '@root/routes.js';
 import store from '@store/index.js';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+import 'material-design-icons-iconfont';
+import VeeValidate from 'vee-validate';
+
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#3f51b5',
+    secondary: '#b0bec5',
+    accent: '#8c9eff',
+    error: '#b71c1c',
+  },
+});
+Vue.use(VeeValidate);
 
 Vue.http.interceptors.push((request, next) => {
   if (store.getters['auth/token']) {
@@ -19,6 +33,7 @@ const router = initRouter({
 
 new Vue({
   router,
+  VeeValidate,
   store,
   render(h) {
     return h(Root);

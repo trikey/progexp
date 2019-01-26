@@ -2,6 +2,7 @@ import indexPage from '@pages/Index';
 import loginPage from '@pages/Login';
 import logoutPage from '@pages/Logout';
 import userPage from '@pages/User';
+import registrationPage from '@pages/Registration';
 
 export default [
   {
@@ -16,6 +17,14 @@ export default [
     name: 'login',
     path: '/login',
     component: loginPage,
+    meta: {
+      authRequired: false,
+    },
+  },
+  {
+    name: 'registration',
+    path: '/registration',
+    component: registrationPage,
     meta: {
       authRequired: false,
     },
