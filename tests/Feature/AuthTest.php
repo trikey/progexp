@@ -88,4 +88,30 @@ class AuthTest extends TestCase
         $response->assertStatus(500);
         $response->assertJsonStructure(['message']);
     }
+
+    public function testRegisterSuccess()
+    {
+        $response = $this->json('POST', route('api.register'), [
+            'email' => 'test@test.ru',
+            'password' => 'asdasd',
+            'password_confirmation' => 'asdasd',
+        ], [
+            'Accept' => 'application/json'
+        ]);
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('users', ['email' => 'test@test.ru']);
+    }
+
+    public function testRegisterFail()
+    {
+        $response = $this->json('POST', route('api.register'), [
+            'email' => 'test@test.ru',
+            'password' => 'asddfasd',
+            'password_confirmation' => 'asdasd',
+        ], [
+            'Accept' => 'application/json'
+        ]);
+        $response->assertStatus(422);
+        $this->assertDatabaseMissing('users', ['email' => 'test@test.ru']);
+    }
 }
