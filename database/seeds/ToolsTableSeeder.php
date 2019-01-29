@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Tool;
 
-class DatabaseSeeder extends Seeder
+class ToolsTableSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -11,7 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UsersTableSeeder::class);
-        $this->call(ToolsTableSeeder::class);
+        $tool = Tool::firstOrCreate(['name' => 'php']);
     }
 }

@@ -17,12 +17,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'Api', 'prefix' => 'auth', 'as' => 'api.'], function () {
-    Route::post('register', 'AuthController@register')->name('register');
-    Route::post('login', 'AuthController@login')->name('login');
-    Route::get('refresh', 'AuthController@refresh')->name('refresh');
-    Route::group(['middleware' => 'auth:api'], function(){
-        Route::get('user', 'AuthController@user');
-        Route::post('logout', 'AuthController@logout')->name('logout');
+Route::group(['namespace' => 'Api', 'as' => 'api.'], function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('register', 'AuthController@register')->name('register');
+        Route::post('login', 'AuthController@login')->name('login');
+        Route::get('refresh', 'AuthController@refresh')->name('refresh');
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::get('user', 'AuthController@user');
+            Route::post('logout', 'AuthController@logout')->name('logout');
+        });
+    });
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::resource('tools', 'ToolsController')->except(['create', 'edit']);
     });
 });
